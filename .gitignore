@@ -13,3 +13,6 @@ npm-debug.log*
 yarn-error.log*
 supabase/.temp/
 supabase/.branches/
+
+# dossier cree automatiquement par l app Claude
+Claude outputs/

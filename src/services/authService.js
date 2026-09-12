@@ -3,7 +3,7 @@
    ========================================================================== */
 
 import { supabase, rpc } from "../lib/supabase.js";
-import { POLICY_VERSION, SITE_URL } from "../lib/config.js";
+import { POLICY_VERSION, AUTH_ORIGIN } from "../lib/config.js";
 import { acquisitionSignupMeta } from "../lib/acquisition.js";
 
 export const authService = {
@@ -34,7 +34,7 @@ export const authService = {
       email: String(email).trim(),
       password,
       options: {
-        emailRedirectTo: `${SITE_URL}/login?verified=1`,
+        emailRedirectTo: `${AUTH_ORIGIN}/login?verified=1`,
         data: {
           username,
           birth_date: birthDate,
@@ -70,7 +70,7 @@ export const authService = {
   async signInWithProvider(provider) {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: `${SITE_URL}/` },
+      options: { redirectTo: `${AUTH_ORIGIN}/` },
     });
     if (error) throw error;
     return data;
@@ -83,7 +83,7 @@ export const authService = {
 
   async sendPasswordReset(email) {
     const { error } = await supabase.auth.resetPasswordForEmail(String(email).trim(), {
-      redirectTo: `${SITE_URL}/reset-password`,
+      redirectTo: `${AUTH_ORIGIN}/reset-password`,
     });
     if (error) throw error;
     return true;
@@ -103,7 +103,7 @@ export const authService = {
   async updateEmail(newEmail) {
     const { error } = await supabase.auth.updateUser(
       { email: String(newEmail).trim() },
-      { emailRedirectTo: `${SITE_URL}/settings` },
+      { emailRedirectTo: `${AUTH_ORIGIN}/settings` },
     );
     if (error) throw error;
     return { pendingConfirmation: true };
@@ -113,7 +113,7 @@ export const authService = {
     const { error } = await supabase.auth.resend({
       type: "signup",
       email: String(email).trim(),
-      options: { emailRedirectTo: `${SITE_URL}/login?verified=1` },
+      options: { emailRedirectTo: `${AUTH_ORIGIN}/login?verified=1` },
     });
     if (error) throw error;
     return true;

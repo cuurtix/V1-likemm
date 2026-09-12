@@ -33,11 +33,12 @@
   Header always set Cross-Origin-Opener-Policy "same-origin"
 
   # Content-Security-Policy
-  # IMPORTANT : remplacer https://VOTRE-PROJET.supabase.co par l'URL reelle du
-  # projet Supabase (voir docs/DEPLOY.md). Les domaines de mesure d'audience et
+  # L'URL du projet Supabase est deja renseignee ci-dessous. Si vous changez de
+  # projet, remplacez les trois occurrences (voir docs/DEPLOY.md).
+  # Les domaines de mesure d'audience et
   # de publicite ne doivent etre ajoutes que lorsqu'ils sont reellement
   # utilises, et le chargement des scripts reste conditionne au consentement.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://VOTRE-PROJET.supabase.co; font-src 'self' data:; connect-src 'self' https://VOTRE-PROJET.supabase.co wss://VOTRE-PROJET.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://paqkpoxiwushcrbjzpyd.supabase.co; font-src 'self' data:; connect-src 'self' https://paqkpoxiwushcrbjzpyd.supabase.co wss://paqkpoxiwushcrbjzpyd.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
 
   # Cache long pour les assets fingerprintes, aucun cache pour index.html
   <FilesMatch "\.(js|css|woff2|png|jpg|jpeg|svg|webp|avif)$">

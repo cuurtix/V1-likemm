@@ -17,7 +17,7 @@ import {
   Database, Cookie, Link2, Eye, EyeOff, Ban, Copy, Info, FileText,
 } from "lucide-react";
 import { PageShell, PageHero } from "../components/molecules.jsx";
-import { Spinner, Callout, EmptyState, UserAvatar } from "../components/atoms.jsx";
+import { Spinner, Callout, EmptyState, ErrorState, UserAvatar } from "../components/atoms.jsx";
 import {
   SettingsGroup, SettingRow, Switch, ModalShell, TextInput, PasswordInput,
   PrimaryButton, SecondaryButton, FormError, PasswordStrengthBar,
@@ -39,7 +39,7 @@ import { CONTACT_EMAIL } from "../lib/config.js";
 
 export default function SettingsPage() {
   const navigate = useNavigate();
-  const { profile, user, patchProfile, refreshProfile, signOut, isMinor } = useAuth();
+  const { profile, profileError, user, patchProfile, refreshProfile, signOut, isMinor } = useAuth();
   const { theme, setTheme } = useTheme();
   const { showToast } = useToast();
   const { openPanel } = useConsent();
@@ -49,6 +49,18 @@ export default function SettingsPage() {
   const [logoutOpen, setLogoutOpen] = useState(false);
 
   useEffect(() => { setPageMeta({ title: "Paramètres", path: "/settings", noindex: true }); }, []);
+
+  // Le profil n'a pas pu etre charge (fonction get_me absente, base
+  // injoignable, session expiree...). On AFFICHE la raison : une page qui
+  // tourne indefiniment ne dit rien a l'utilisateur et ne dit rien non plus
+  // au developpeur.
+  if (profileError) {
+    return (
+      <PageShell>
+        <ErrorState message={mapError(profileError)} onRetry={refreshProfile} />
+      </PageShell>
+    );
+  }
 
   if (!profile) {
     return <PageShell><div className="flex justify-center py-32"><Spinner size={22} /></div></PageShell>;

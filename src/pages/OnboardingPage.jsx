@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Camera, Heart, Trophy, Share2, ArrowRight, Check, Lock } from "lucide-react";
-import { Wordmark, UserAvatar, Spinner, Callout } from "../components/atoms.jsx";
+import { Wordmark, UserAvatar, Spinner, Callout, ErrorState } from "../components/atoms.jsx";
 import { PrimaryButton, SecondaryButton, TextArea, FormError } from "../components/forms.jsx";
 import { ShareSheet } from "../components/dialogs.jsx";
 import { profileService } from "../services/profileService.js";
@@ -29,7 +29,7 @@ const STEPS = 3;
 
 export default function OnboardingPage() {
   const navigate = useNavigate();
-  const { profile, user, patchProfile, refreshProfile, isMinor } = useAuth();
+  const { profile, profileError, user, patchProfile, refreshProfile, isMinor } = useAuth();
   const { showToast } = useToast();
 
   const [step, setStep] = useState(1);
@@ -92,6 +92,14 @@ export default function OnboardingPage() {
       setFinishing(false);
     }
   };
+
+  if (profileError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-6">
+        <ErrorState message={mapError(profileError)} onRetry={refreshProfile} />
+      </div>
+    );
+  }
 
   if (!profile) {
     return (

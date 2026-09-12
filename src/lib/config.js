@@ -37,8 +37,31 @@ export const CONFIG_ERROR = missing.length
   ? `Variable${missing.length > 1 ? "s" : ""} d'environnement manquante${missing.length > 1 ? "s" : ""} : ${missing.join(", ")}.`
   : null;
 
-/** Origine publique du site, utilisee pour construire les liens de partage. */
+/**
+ * Origine PUBLIQUE du site. Sert a construire les liens de PARTAGE et les
+ * URLs canoniques : elle doit rester le domaine de production, meme en
+ * developpement (un lien partage doit pointer vers likemm.site, pas vers
+ * localhost).
+ */
 export const SITE_URL = (env.VITE_SITE_URL || window.location.origin).replace(/\/+$/, "");
+
+/**
+ * Origine utilisee pour les REDIRECTIONS D'AUTHENTIFICATION (retour OAuth,
+ * confirmation d'email, reinitialisation de mot de passe).
+ *
+ * C'est TOUJOURS l'origine reellement ouverte dans le navigateur, jamais la
+ * valeur de VITE_SITE_URL. La raison est concrete : si l'on renvoie vers
+ * https://likemm.site alors que la personne developpe sur
+ * http://localhost:5173, Supabase refuse la redirection (elle n'est pas dans
+ * la liste « Redirect URLs ») et retombe sur la Site URL en abandonnant le
+ * code d'autorisation au passage. Resultat : retour sur l'accueil, aucune
+ * session creee, et un lien de confirmation d'email qui finit sur une page
+ * blanche de supabase.co.
+ *
+ * En separant les deux notions, le meme code fonctionne en local et en
+ * production sans jamais toucher au .env.
+ */
+export const AUTH_ORIGIN = window.location.origin.replace(/\/+$/, "");
 
 /** Adresse de contact. Unique coordonnee connue du service (§47 / §48). */
 export const CONTACT_EMAIL = env.VITE_CONTACT_EMAIL || "help@likemm.site";

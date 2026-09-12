@@ -29,7 +29,7 @@ import { setPageMeta } from "../lib/seo.js";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const { profile, refreshProfile, patchProfile, user } = useAuth();
+  const { profile, profileError, refreshProfile, patchProfile, user } = useAuth();
   const { showToast } = useToast();
 
   const [rank, setRank] = useState(null);
@@ -94,11 +94,26 @@ export default function ProfilePage() {
     }
   };
 
+  // Le profil n'a pas pu etre charge (fonction get_me absente, base
+  // injoignable, session expiree...). On AFFICHE la raison : une page qui
+  // tourne indefiniment ne dit rien a l'utilisateur et ne dit rien non plus
+  // au developpeur.
+  if (profileError) {
+    return (
+      <PageShell>
+        <ErrorState message={mapError(profileError)} onRetry={refreshProfile} />
+      </PageShell>
+    );
+  }
+
   if (!profile) {
     return (
       <PageShell>
         <div className="flex flex-col items-center justify-center py-32">
           <Spinner size={22} />
+          <p className="text-[14px] mt-4" style={{ color: "var(--text-muted)" }}>
+            Chargement de votre profil…
+          </p>
         </div>
       </PageShell>
     );
