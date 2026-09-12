@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>Likemm — le classement de popularite</title>
+    <meta name="description" content="Likemm classe les profils selon le nombre de likes reellement recus. Creez votre profil, partagez-le, grimpez le classement." />
+    <link rel="canonical" href="https://likemm.site/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!--
+      Open Graph / Twitter cards.
+      ATTENTION : ce site est une application monopage servie statiquement.
+      Les balises ci-dessous sont donc GENERIQUES et identiques pour toutes les
+      URLs. Une preview par profil (og:image avec l'avatar de @username)
+      necessite un rendu cote serveur : voir docs/DEPLOY.md, section
+      « Previews de partage ». Aucune preview dynamique n'est simulee ici.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Likemm" />
+    <meta property="og:title" content="Likemm — le classement de popularite" />
+    <meta property="og:description" content="Creez votre profil, partagez-le, recevez des likes, grimpez le classement." />
+    <meta property="og:url" content="https://likemm.site/" />
+    <meta property="og:image" content="https://likemm.site/og-default.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Likemm — le classement de popularite" />
+    <meta name="twitter:description" content="Creez votre profil, partagez-le, recevez des likes, grimpez le classement." />
+    <meta name="twitter:image" content="https://likemm.site/og-default.png" />
+
+    <!-- Theme applique avant le premier rendu pour eviter le flash -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("likemm_theme") || "light";
+          if (t === "dark") document.documentElement.classList.add("lm-dark");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      Likemm necessite JavaScript pour fonctionner. Activez-le puis rechargez la page.
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

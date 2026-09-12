@@ -1,0 +1,19 @@
+# Likemm — https://likemm.site
+User-agent: *
+Allow: /
+
+# Zones qui ne doivent pas etre indexees
+Disallow: /admin
+Disallow: /settings
+Disallow: /notifications
+Disallow: /onboarding
+Disallow: /account-deletion
+Disallow: /data-rights
+Disallow: /appeal
+
+# Les profils prives ne sont pas indexables : ils ne sont accessibles que via
+# un lien d'invitation porteur d'un token, jamais reference publiquement, et la
+# page envoie <meta name="robots" content="noindex"> a l'execution.
+Disallow: /p/
+
+Sitemap: https://likemm.site/sitemap.xml

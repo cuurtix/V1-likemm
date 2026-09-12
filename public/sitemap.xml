@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap statique : uniquement les pages fixes du site.
+  Les profils publics (/@username) ne peuvent pas etre listes ici sans
+  generation cote serveur. Voir docs/DEPLOY.md pour generer un sitemap des
+  profils publics a partir de la base lorsque ce sera souhaite.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://likemm.site/</loc><changefreq>hourly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://likemm.site/explorer</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://likemm.site/legal</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://likemm.site/mentions-legales</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://likemm.site/terms</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://likemm.site/privacy</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://likemm.site/cookies</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://likemm.site/community-guidelines</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://likemm.site/moderation</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://likemm.site/contact</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+</urlset>

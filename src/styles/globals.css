@@ -1,0 +1,265 @@
+/* =============================================================================
+   LIKEMM — design tokens
+   Palette reprise a l'identique du prototype v2 (inspiration Apple) :
+   blanc / noir / gris + un accent bleu discret. Aucune valeur n'a ete modifiee,
+   le fichier ne fait que deplacer les tokens depuis le <style> injecte en JS
+   vers une vraie feuille de style compilee par Vite.
+   ============================================================================= */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* LIGHT */
+  --bg: #fbfbfd;
+  --bg-elev-1: #ffffff;
+  --bg-elev-2: #f5f5f7;
+  --bg-elev-3: #eeeef1;
+  --border: rgba(0, 0, 0, 0.12);
+  --border-soft: rgba(0, 0, 0, 0.06);
+  --hairline: rgba(0, 0, 0, 0.08);
+  --text: #1d1d1f;
+  --text-secondary: #424245;
+  --text-muted: #6e6e73;
+  --text-dim: #86868b;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-soft: rgba(0, 113, 227, 0.08);
+  --accent-ring: rgba(0, 113, 227, 0.3);
+  --like: #1d1d1f;
+  --like-fill: #1d1d1f;
+  --like-soft: rgba(29, 29, 31, 0.06);
+  --success: #248a3d;
+  --warning: #b25000;
+  --danger: #d70015;
+  --danger-soft: rgba(215, 0, 21, 0.08);
+  --gold: #b78628;
+
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.14), 0 8px 20px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 40px 80px -20px rgba(0, 0, 0, 0.22), 0 12px 30px rgba(0, 0, 0, 0.08);
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.lm-dark {
+  --bg: #000000;
+  --bg-elev-1: #1c1c1e;
+  --bg-elev-2: #2c2c2e;
+  --bg-elev-3: #3a3a3c;
+  --border: rgba(255, 255, 255, 0.14);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --hairline: rgba(255, 255, 255, 0.1);
+  --text: #f5f5f7;
+  --text-secondary: #d1d1d6;
+  --text-muted: #a1a1a6;
+  --text-dim: #6e6e73;
+  --accent: #0a84ff;
+  --accent-hover: #409cff;
+  --accent-soft: rgba(10, 132, 255, 0.14);
+  --accent-ring: rgba(10, 132, 255, 0.4);
+  --like: #ffffff;
+  --like-fill: #ffffff;
+  --like-soft: rgba(255, 255, 255, 0.1);
+  --success: #30d158;
+  --warning: #ff9f0a;
+  --danger: #ff453a;
+  --danger-soft: rgba(255, 69, 58, 0.14);
+  --gold: #ffd60a;
+
+  --glass-bg: rgba(28, 28, 30, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.011em;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.022em;
+}
+
+/* Transitions globales au changement de theme, mais pas pendant la frappe */
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.28s;
+  transition-timing-function: var(--ease-out);
+}
+input,
+textarea,
+button {
+  transition-duration: 0.18s;
+}
+
+/* Respect de prefers-reduced-motion — accessibilite */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.lm-fadeIn { animation: fadeIn 0.22s var(--ease-out); }
+.lm-slideUp { animation: slideUp 0.36s var(--ease-out); }
+.lm-cardIn { animation: cardIn 0.32s var(--ease-out) both; }
+.lm-spin { animation: spin 0.8s linear infinite; }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-elev-1) inset;
+  -webkit-text-fill-color: var(--text);
+}
+
+/* Scrollbar discrete facon macOS */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+  background-clip: content-box;
+  border: 3px solid transparent;
+}
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Skeleton shimmer */
+.lm-skel {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elev-2) 0%,
+    var(--bg-elev-3) 50%,
+    var(--bg-elev-2) 100%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.8s infinite linear;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+/* Accessibilite : etat focus visible partout (exigence §42 du cahier des charges) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Lien d'evitement clavier */
+.lm-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+}
+.lm-skip:focus {
+  left: 12px;
+  top: 12px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Contenu redactionnel des pages juridiques */
+.lm-prose p,
+.lm-prose li {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+.lm-prose p { margin: 0 0 14px; }
+.lm-prose ul,
+.lm-prose ol { margin: 0 0 16px; padding-left: 22px; }
+.lm-prose li { margin-bottom: 6px; }
+.lm-prose h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 34px 0 12px;
+  letter-spacing: -0.02em;
+  scroll-margin-top: 90px;
+}
+.lm-prose h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 22px 0 8px;
+}
+.lm-prose strong { color: var(--text); font-weight: 600; }
+.lm-prose a { color: var(--accent); text-decoration: none; }
+.lm-prose a:hover { text-decoration: underline; }
+.lm-prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  background: var(--bg-elev-2);
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: var(--text);
+}
